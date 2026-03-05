@@ -5,9 +5,14 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 1. What was broken when you started?
 
 - What did the game look like the first time you ran it?
+  - The UI looked good. I noticed that on the side bar it specifies the Range: 1 to 100, but if it was on the main central navigation bar, it would be easier to not guess what the min and max of the guesses would be.
 - List at least two concrete bugs you noticed at the start  
   (for example: "the secret number kept changing" or "the hints were backwards").
-
+  - The score was calculated incorrectly.
+  - The Go Lower and Go Higher code was incorrect, and/or the secret number was changing. I have to debug to figure out the issue.
+  - New Game button, creates a new secret number, but it doesn't restart the game.
+  - Show hint when checked and then unchecked and checked again doesn't show the hint.
+  - If a number is over or under the range of 1-100, return an out of bounds message.
 ---
 
 ## 2. How did you use AI as a teammate?
