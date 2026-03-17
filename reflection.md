@@ -18,16 +18,19 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
+  - Copilot
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
+    - I told Copilot that the Go Lower and Go Higher code is incorrect. I tried to be vague to see if it is able to identify the issue. And yes, it was able to. It said that in the check_guess function, the "Go Higher" and "Go Lower" messages are reversed. When the guess is too high, it should say "Go LOWER", not "Go HIGHER", and vice versa.
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+  - I told Copilot about the show hint when checked and then unchecked and checked again doesn't show the hint bug. It fixed one line of code and told me it fixed it. However, upon testing, the code doesn't work. The change it suggested didn't work. So I reprompted with the exact steps I took to encounter the error. Then it was able to identify that the hint message is only generated and displayed when the submit button is pressed. It them implemented a way to store the last message and display it again when the checkbox is checked.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
+  - I tested each of the bugs using different inputs and parameters. I tried to purposefully break the app to see if any other bugs come to surface. When the bug I was working on isn't occurring again, I know it is fixed.
+- Describe at least one test you ran (manual or using pytest) and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
 
 ---
