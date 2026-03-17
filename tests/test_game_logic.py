@@ -79,3 +79,27 @@ def test_secret_consistency_across_checks():
     # Third check with winning guess, secret is still same
     outcome3, _ = check_guess(42, secret)
     assert outcome3 == "Win"
+
+
+# Edge case: decimal input should be truncated and accepted as valid int
+def test_parse_guess_decimal():
+    ok, value, err = parse_guess("3.7")
+    assert ok == True
+    assert value == 3
+    assert err is None
+
+
+# Edge case: whitespace-only input should be rejected as not a number
+def test_parse_guess_whitespace():
+    ok, value, err = parse_guess("   ")
+    assert ok == False
+    assert value is None
+    assert err is not None
+
+
+# Edge case: extremely large number should be rejected as out of bounds
+def test_parse_guess_extremely_large():
+    ok, value, err = parse_guess("99999")
+    assert ok == False
+    assert value is None
+    assert "1 and 100" in err
