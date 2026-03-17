@@ -26,6 +26,7 @@ def parse_guess(raw: str):
     except Exception:
         return False, None, "That is not a number."
 
+    # FIX: Added bounds validation to reject guesses outside 1-100 range and not count as attempts
     if value < 1 or value > 100:
         return False, None, "Guess must be between 1 and 100."
 
@@ -35,8 +36,7 @@ def parse_guess(raw: str):
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
-
-    try:
+    # FIX: Corrected reversed Go Higher/Go Lower hint messages (was saying wrong direction)    try:
         if guess > secret:
             return "Too High", "� Go LOWER!"
         else:
@@ -107,6 +107,7 @@ if "status" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
+# FIX: Store last message and outcome to redisplay hint when checkbox is toggled
 if "last_message" not in st.session_state:
     st.session_state.last_message = None
 
@@ -138,17 +139,22 @@ with col1:
 with col2:
     new_game = st.button("New Game 🔁")
 with col3:
-    show_hint = st.checkbox("Show hint", value=True, key="show_hint_checkbox")
+    # FIX: Added unique key to checkbox to properly track state across reruns (toggle hint on/off)
+    show_hint = st.checkbox("Show hint", value=True, key="show_hint_checkbox", on_change=st.rerun)
 
+# FIX: Display stored hint message when checkbox is checked (allows toggling hint on/off)
 if show_hint and st.session_state.last_message:
     st.warning(st.session_state.last_message)
 
+# FIX: Reset all game state variables (was only resetting secret and attempts) to fully restart game
 if new_game:
     st.session_state.attempts = 1
     st.session_state.secret = random.randint(low, high)
     st.session_state.status = "playing"
     st.session_state.history = []
     st.session_state.score = 0
+    st.session_state.last_message = None
+    st.session_state.last_outcome = None
     st.success("New game started.")
     st.rerun()
 
@@ -166,6 +172,7 @@ if submit:
         st.session_state.history.append(raw_guess)
         st.error(err)
     else:
+        # FIX: Only increment attempts for valid guesses (move increment after validation)
         st.session_state.attempts += 1
         st.session_state.history.append(guess_int)
 

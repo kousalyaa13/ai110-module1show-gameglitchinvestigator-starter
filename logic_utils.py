@@ -1,5 +1,6 @@
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
+    # FIX: Refactored logic into logic_utils.py for better testability and separation of concerns
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
@@ -15,6 +16,7 @@ def parse_guess(raw: str):
 
     Returns: (ok: bool, guess_int: int | None, error_message: str | None)
     """
+    # FIX: Refactored logic into logic_utils.py with bounds validation (1-100) to reject out-of-bounds guesses
     if raw is None:
         return False, None, "Enter a guess."
 
@@ -41,6 +43,7 @@ def check_guess(guess, secret):
 
     outcome examples: "Win", "Too High", "Too Low"
     """
+    # FIX: Refactored logic into logic_utils.py with corrected hint messages (Go LOWER/Go HIGHER were reversed)
     if guess == secret:
         return "Win", "🎉 Correct!"
 
@@ -60,6 +63,7 @@ def check_guess(guess, secret):
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
     """Update score based on outcome and attempt number."""
+    # FIX: Refactored logic into logic_utils.py for better testability
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
         if points < 10:
