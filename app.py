@@ -36,7 +36,8 @@ def parse_guess(raw: str):
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
-    # FIX: Corrected reversed Go Higher/Go Lower hint messages (was saying wrong direction)    try:
+    # FIX: Corrected reversed Go Higher/Go Lower hint messages (was saying wrong direction)
+    try:
         if guess > secret:
             return "Too High", "� Go LOWER!"
         else:
@@ -207,6 +208,7 @@ if submit:
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+            st.rerun()
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")

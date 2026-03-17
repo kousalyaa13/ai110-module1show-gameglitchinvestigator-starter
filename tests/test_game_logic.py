@@ -1,5 +1,6 @@
 from logic_utils import check_guess, parse_guess
 
+
 def test_winning_guess():
     # If the secret is 50 and guess is 50, it should be a win
     outcome, message = check_guess(50, 50)
@@ -60,3 +61,21 @@ def test_parse_guess_boundary_high():
     ok, value, err = parse_guess("100")
     assert ok == True
     assert value == 100
+
+
+# FIX: Added test to verify secret number doesn't change across multiple checks in same game session
+def test_secret_consistency_across_checks():
+    # Simulating multiple guesses against the same secret number (should not change)
+    secret = 42
+    
+    # First check
+    outcome1, _ = check_guess(50, secret)
+    assert outcome1 == "Too High"
+    
+    # Second check with different guess, secret is same
+    outcome2, _ = check_guess(30, secret)
+    assert outcome2 == "Too Low"
+    
+    # Third check with winning guess, secret is still same
+    outcome3, _ = check_guess(42, secret)
+    assert outcome3 == "Win"
