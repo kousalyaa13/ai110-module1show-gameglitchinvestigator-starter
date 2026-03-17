@@ -25,14 +25,27 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+**Game Purpose:**
+A number guessing game where you try to guess a secret number within a limited number of attempts. The game gives directional hints (Go Higher/Go Lower) and tracks your score across guesses.
+
+**Bugs Found:**
+- The `Go Higher` / `Go Lower` hints were reversed — when your guess was too high it told you to go higher, and vice versa
+- The `Show Hint` checkbox would stop displaying the hint after being toggled off and back on
+- The New Game button reset the secret number but not the rest of the game state (attempts, score, status, history)
+- Guesses outside the 1–100 range were accepted and counted as attempts
+- The hint didn't appear immediately after submitting a guess — it only showed on the next submit
+
+**Fixes Applied:**
+- Corrected the comparison logic in `check_guess` so hints point the right direction
+- Stored the last hint message in `st.session_state` so it persists when the checkbox is toggled
+- Updated the New Game button to reset all session state variables, not just the secret
+- Added bounds validation in `parse_guess` to reject out-of-range guesses without counting the attempt
+- Added `st.rerun()` after non-winning guesses so the hint displays immediately
 
 ## 📸 Demo
-
-- [ ] [Insert a screenshot of your fixed, winning game here]
+![alt text](image-1.png)
 
 ## 🚀 Stretch Features
 
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+- Challenge 1: Advanced Edge-Case Testing
+![alt text](image.png)
